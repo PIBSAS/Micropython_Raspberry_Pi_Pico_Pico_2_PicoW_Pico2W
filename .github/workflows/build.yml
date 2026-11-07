@@ -21,14 +21,14 @@ jobs:
       run: git clone --recurse-submodules https://github.com/micropython/micropython.git
 
     - name: Cache MicroPython builds
-      uses: actions/cache@v5.0.1
+      uses: actions/cache@v5
       with:
         path: micropython/mpy-cross/mpy-cross
         key: micropython-${{ hashFiles('micropython/py/mpconfig.h') }}
         restore-keys: micropython-
 
     - name: Setup Python
-      uses: actions/setup-python@v6.1.0
+      uses: actions/setup-python@v7
       with:
         python-version: "3.x"
         cache: "pip"
@@ -85,7 +85,7 @@ jobs:
       run: echo "TAG_NAME=release-$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
 
     - name: GH Release
-      uses: softprops/action-gh-release@v2.5.0
+      uses: softprops/action-gh-release@v3
       with:
         tag_name: ${{ env.TAG_NAME }}
         name: "MicroPython for RP2 Release version ${{ env.MPY_VERSION }} (Build ${{ env.TAG_NAME }})"
